@@ -1,7 +1,7 @@
 "use strict";
 
 import React, { Component } from 'react'
-import { View, Text, Dimensions, StyleSheet} from 'react-native'
+import { View, Text, Dimensions, StyleSheet } from 'react-native'
 import GankData from '../modle/GankData'
 
 /**
@@ -10,25 +10,31 @@ import GankData from '../modle/GankData'
 export default class DetailItem extends Component {
     constructor(props) {
         super(props)
-        this.setState = {
-            width: this.props.width,
+        console.log('看我！！！！')
+        this.state = {
             title: this.props.title,
             dataArray: this.props.gankBaseData
         }
+    }
+
+    renderItems() {
+        let items = []
+        this.state.dataArray.forEach(function (element) {
+            items.push
+            (<View style={Styles.content} >
+                <Text style={Styles.contentDesc}>{element.desc}</Text>
+                <Text style={Styles.contentAuthor}>{'(' + element.who + ')'}</Text>
+            </View>)
+        })
+        return items
     }
 
     render() {
         return (
             <View style={Styles.root}>
                 <Text> {this.state.title} </Text>
-                {
-                    this.state.dataArray.forEach(function (element) {
-                        (<View style = {Styles.content} >
-                            <Text style = {Styles.contentDesc}>{element.desc}</Text>
-                            <Text style = {Styles.contentAuthor}>{'(' + element.who + ')'}</Text>
-                        </View>)
-                    })
-                }
+                {this.renderItems().map((items)=>items)}
+
             </View>
         )
     }
@@ -37,7 +43,7 @@ export default class DetailItem extends Component {
 const Styles = StyleSheet.create({
     //根布局
     root: {
-       
+
     },
     //标题
     title: {
