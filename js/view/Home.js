@@ -7,7 +7,8 @@ import {
     View,
     StyleSheet,
     Text,
-    Dimensions
+    Dimensions,
+    StatusBar
 } from 'react-native';
 //屏幕参数
 const { width, height } = Dimensions.get('window');
@@ -36,11 +37,24 @@ export default class Home extends Component {
         })
         return segments
     }
+    //滑动到最后
+    _onMomentumScrollEnd(e, state, context) {
+        if (state.index === 0) {
+            console.log("最左边!")
+        } else if (state.index === 3) {
+            console.log("最右边!")
+            //加载
+        }
+    }
 
     render() {
         return (
             <View style={Styles.root}>
-                <Swiper style={Styles.swiper} horizontal={true} autoplay={false}>
+                <StatusBar
+                    translucent = {true}
+                    backgroundColor = "#f5f5f5"
+                />
+                <Swiper style={Styles.swiper} loop={false} horizontal={true} autoplay={false} showsPagination={false} onMomentumScrollEnd={this._onMomentumScrollEnd.bind(this)}>
                     {this.renderSegment().map((segment) => segment)}
                 </Swiper>
             </View>
