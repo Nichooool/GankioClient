@@ -15,7 +15,8 @@ import {
 //屏幕参数
 const { width, height } = Dimensions.get('window');
 
-const URL = 'http://gank.io/api/data'
+const DATA_URL = 'http://gank.io/api/data'
+const DAY_URL = 'http://gank.io/api/day'
 
 export default class Home extends Component {
     constructor(props) {
@@ -33,7 +34,7 @@ export default class Home extends Component {
         //     gankDataArray: []
         // })
         
-        fetch(URL + "/福利/10/1")
+        fetch(DATA_URL + "/福利/10/1")
         .then(response => response.json())
         .then(res => { 
             let result = res.results[0]
@@ -44,8 +45,8 @@ export default class Home extends Component {
                 //此处需要加一 因为一月份是0
                 let month = date.getMonth() + 1
                 let day = date.getDate()
-                console.log(URL + '/' + year + '/' + month + '/' + day)
-                return fetch(URL + '/' + year + '/' + month + '/' + day)
+                console.log(DAY_URL + '/' + year + '/' + month + '/' + day)
+                return fetch(DAY_URL + '/' + year + '/' + month + '/' + day)
             }
             throw new Error('没有日期数据!!')
         })
