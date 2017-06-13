@@ -10,7 +10,6 @@ import GankData from '../modle/GankData'
 export default class DetailItem extends Component {
     constructor(props) {
         super(props)
-        console.log('看我！！！！')
         this.state = {
             title: this.props.title,
             dataArray: this.props.gankBaseData
