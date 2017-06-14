@@ -5,6 +5,7 @@ import GankCard from './GankCard'
 import Swiper from 'react-native-swiper';
 import Webview from '../view/Webview'
 import ActionBar from '../view/ActionBar'
+import {request} from '../utils/Request'
 import {
     View,
     StyleSheet,
@@ -14,9 +15,6 @@ import {
 } from 'react-native';
 //屏幕参数
 const { width, height } = Dimensions.get('window');
-
-const DATA_URL = 'http://gank.io/api/data'
-const DAY_URL = 'http://gank.io/api/day'
 
 export default class Home extends Component {
     constructor(props) {
@@ -33,30 +31,9 @@ export default class Home extends Component {
         //     //默认空数组
         //     gankDataArray: []
         // })
-        
-        fetch(DATA_URL + "/福利/10/1")
-        .then(response => response.json())
-        .then(res => { 
-            let result = res.results[0]
-            console.log(result.publishedAt)
-            let date = new Date(Date.parse(result.publishedAt))
-            if (date !== null && date instanceof Date) {
-                let year = date.getFullYear()
-                //此处需要加一 因为一月份是0
-                let month = date.getMonth() + 1
-                let day = date.getDate()
-                console.log(DAY_URL + '/' + year + '/' + month + '/' + day)
-                return fetch(DAY_URL + '/' + year + '/' + month + '/' + day)
-            }
-            throw new Error('没有日期数据!!')
+        request(1, function(response) {
+            console.log(response)
         })
-        .then(response => response.json())
-        .then(res => { 
-            console.log(res)
-        })
-        .catch(error =>
-            console.log(error)
-        );
     }
 
     renderSegment() {
@@ -83,7 +60,7 @@ export default class Home extends Component {
                     translucent={false}
                     backgroundColor="#f5f5f5"
                 />
-                
+
                 <Swiper style={Styles.swiper} loop={false} horizontal={true} autoplay={false} showsPagination={false} onMomentumScrollEnd={this._onMomentumScrollEnd.bind(this)}>
                     {this.renderSegment().map((segment) => segment)}
                 </Swiper>
@@ -100,7 +77,7 @@ const Styles = StyleSheet.create({
     },
     actionBar: {
         position: 'absolute',
-         left: 0,
+        left: 0,
         top: 0,
         height: 48,
         width: width
