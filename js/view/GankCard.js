@@ -25,23 +25,21 @@ export default class GankCard extends Component {
             date: this.gankData.date,
             imgUrl: this.gankData.url,
             desc: this.gankData.desc,
-            detailData: this.gankData.details,
+            detailData: this.gankData.results,
             headOpacity: 1
         }
     }
 
     renderDetails() {
         let details = []
-        for (let [key, value] of this.state.detailData.entries()) {
-            if (value !== null && value.length > 0) {
-                details.push(<DetailItem title={key} gankBaseData={value} />)
-            }
+        for (let variable in this.state.detailData) {
+            details.push(<DetailItem title={variable} gankBaseData={this.state.detailData[variable]} />)
         }
         return details
     }
 
     _onScorll(event) {
-        const {nativeEvent} = event;
+        const { nativeEvent } = event;
         let y = nativeEvent.contentOffset.y
         if (y > IMG_HEIGHT) {
             y = IMG_HEIGHT;
@@ -62,13 +60,13 @@ export default class GankCard extends Component {
     render() {
         return (
             <View style={Styles.root}>
-                <Image style={[Styles.headImg, {opacity: this.state.headOpacity}]} source={{ uri: this.state.imgUrl }} ></Image>
-                <View style={[Styles.headdetail, {opacity: this.state.headOpacity}]} >
+                <Image style={[Styles.headImg, { opacity: this.state.headOpacity }]} source={{ uri: this.state.imgUrl }} ></Image>
+                <View style={[Styles.headdetail, { opacity: this.state.headOpacity }]} >
                     <View style={{ flex: 1 }} />
                     <Text style={Styles.headDesc} > {this.state.desc}</Text>
                     <Text style={Styles.headDate} > {date2String(this.state.date)}</Text>
                 </View>
-                <ScrollView style={Styles.scrollView} onScroll = {this._onScorll.bind(this)} showsVerticalScrollIndicator = {false}>
+                <ScrollView style={Styles.scrollView} onScroll={this._onScorll.bind(this)} showsVerticalScrollIndicator={false}>
                     <View style={Styles.headImg} />
                     <View style={Styles.scrollViewItem}>
                         {this.renderDetails().map((item) => item)}

@@ -25,7 +25,7 @@ export function request (pos, response) {
                         date : date,
                         imgUrl : result.url,
                         author : result.who,
-                        ditals : undefined
+                        details : undefined
                     })
 
                     if (date !== null && date instanceof Date) {
@@ -51,11 +51,11 @@ export function request (pos, response) {
             })
             .then(res => {
                 for (let i = 0; i < resultArray.length; i++) {
-                    resultArray[i].ditals = res[i]
+                    resultArray[i].details = res[i]
                 }
                 response(resultArray)
             })
-            .catch(error =>
+            .catch(function(error) {
                 console.log(error)
-            );
+            });
 }

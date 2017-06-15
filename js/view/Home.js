@@ -5,7 +5,6 @@ import GankCard from './GankCard'
 import Swiper from 'react-native-swiper';
 import Webview from '../view/Webview'
 import ActionBar from '../view/ActionBar'
-import {request} from '../utils/Request'
 import {
     View,
     StyleSheet,
@@ -23,17 +22,6 @@ export default class Home extends Component {
             //默认空数组
             gankDataArray: this.props.gankDataArray
         }
-    }
-
-    //布局加载完成 就异步加载数据
-    componentDidMount() {
-        // this.setState({
-        //     //默认空数组
-        //     gankDataArray: []
-        // })
-        request(1, function(response) {
-            console.log(response)
-        })
     }
 
     renderSegment() {
