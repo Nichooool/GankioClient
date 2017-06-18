@@ -1,7 +1,5 @@
 "use strict";
 
-import GankBaseData from './GankBaseData'
-
 /**
  * 单页面显示所需要的数据
  * */

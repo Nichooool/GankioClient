@@ -32,8 +32,9 @@ export default class GankCard extends Component {
 
     renderDetails() {
         let details = []
+        let that = this
         for (let variable in this.state.detailData) {
-            details.push(<DetailItem title={variable} gankBaseData={this.state.detailData[variable]} />)
+            details.push(<DetailItem navigation = { that.props.navigation} style = {Styles.detailItem} title={variable} gankBaseData={this.state.detailData[variable]} />)
         }
         return details
     }
@@ -67,7 +68,7 @@ export default class GankCard extends Component {
                     <Text style={Styles.headDate} > {date2String(this.state.date)}</Text>
                 </View>
                 <ScrollView style={Styles.scrollView} onScroll={this._onScorll.bind(this)} showsVerticalScrollIndicator={false}>
-                    <View style={Styles.headImg} />
+                    <View style={Styles.scrollViewTop} />
                     <View style={Styles.scrollViewItem}>
                         {this.renderDetails().map((item) => item)}
                     </View>
@@ -98,36 +99,34 @@ const Styles = StyleSheet.create({
         bottom: 0,
         flex: 1
     },
+    scrollViewTop : {
+        width: width,
+        height: IMG_HEIGHT
+    },
     scrollViewItem: {
         flex: 1,
-        backgroundColor: '#f5f5f5'
+        backgroundColor: '#ff6347'
     },
     //顶部图片
     headImg: {
         width: width,
-        height: IMG_HEIGHT
+        height: IMG_HEIGHT,
+        resizeMode: 'cover'
     },
     //顶部描述
     headDesc: {
         fontSize: 30,
-        color: 'black',
+        color: 'white',
         left: MARGIN_LEFT
     },
     //顶部日期
     headDate: {
         fontSize: 30,
-        color: 'black',
+        color: 'white',
         marginLeft: MARGIN_LEFT
     },
-    //详情中的标题
-    detailTitle: {
-        fontSize: 12,
-        color: 'black'
-    },
-    //详情中的描述
-    detailDesc: {
-        fontSize: 12,
-        color: 'black',
-        marginLeft: MARGIN_LEFT
+    //数据间隔
+    detailItem: {
+        marginTop: 30
     }
 });

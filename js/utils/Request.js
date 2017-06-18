@@ -1,9 +1,11 @@
 "use strict";
 
-const DATA_URL = 'http://gank.io/api/data'
+//数据的链接
+export const DATA_URL = 'http://gank.io/api/data/福利/10/'
+//每天数据的链接
 const DAY_URL = 'http://gank.io/api/day'
 
-export function request (pos, response) {
+export function request (pos, response, error) {
     if (response === null) {
         return
     }
@@ -13,7 +15,7 @@ export function request (pos, response) {
     //结果数组
     let resultArray = []
 
-    fetch(DATA_URL + "/福利/10/" + pos)
+    fetch(DATA_URL + pos)
             .then(response => response.json())
             .then(res => {
                 let promiseArray = []
@@ -55,7 +57,7 @@ export function request (pos, response) {
                 }
                 response(resultArray)
             })
-            .catch(function(error) {
-                console.log(error)
+            .catch(function(e) {
+                error(e)
             });
 }
