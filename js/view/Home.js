@@ -28,6 +28,8 @@ export default class Home extends Component {
     componentDidMount() {
         console.log('componentDidMount')
         this.dataPresenter.requestGankData((tip, result) => {
+            console.log("result >> " + tip);
+            console.log(result);
             this.setState({
                 gankDataArray: result
             })
